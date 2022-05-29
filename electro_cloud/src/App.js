@@ -15,6 +15,7 @@ import Login from "./Components/Login";
 import WishList from "./Components/WishList";
 import Cart from "./Components/Cart";
 import Registration from "./Components/Registration";
+import Order from "./Components/Order";
 function App() {
   return (
     <div>
@@ -34,6 +35,7 @@ function App() {
           <Route path="/Product/:id" element={<SingleProduct />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Registration" element={<Registration />} />
+          <Route path="/Orders" element={<Order />} />
           <Route path="*" element={<Error />} />
         </Routes>
         <div style={{ marginBottom: "20px" }}></div>

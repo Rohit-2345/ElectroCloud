@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { useGlobalContext } from "./Context";
 import { FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+const Login_URL = "https://localhost:44351/api/Login";
+
 const Login = () => {
   const { openLoginPage, setOpenLoginPage, setIsLogin } = useGlobalContext();
   const [email, setEmail] = useState("");
@@ -10,17 +13,49 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (email === "r" && password === "r") {
+  //     setIsLogin(true);
+  //     setOpenLoginPage(false);
+  //     navigate(-1);
+  //   } else {
+  //     setIsLogin(false);
+  //     console.log("invalid user");
+  //   }
+  //   console.log("form submitted.");
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email === "r" && password === "r") {
-      setIsLogin(true);
-      setOpenLoginPage(false);
-      navigate(-1);
-    } else {
-      setIsLogin(false);
-      console.log("invalid user");
+    try {
+      if (!email) {
+        alert("Please Enter email");
+        document.getElementById("email").style.borderColor = "red";
+      } else if (!password) {
+        alert("Please Enter password");
+        document.getElementById("email").style.borderColor = "green";
+        document.getElementById("password").style.borderColor = "red";
+      } else {
+        const response = await axios.post(Login_URL, {
+          email: email,
+          password: password,
+        });
+        const data = response.data;
+        if (data === "User Not Found") {
+          setIsLogin(false);
+          alert(data);
+        } else {
+          setIsLogin(true);
+          setOpenLoginPage(false);
+          navigate(-1);
+          window.sessionStorage.setItem("cust_id", response.data);
+          console.log(window.sessionStorage.getItem("cust_id"));
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
-    console.log("form submitted.");
   };
 
   const handleClose = (e) => {
@@ -43,21 +78,27 @@ const Login = () => {
               <FaTimes />
             </button>
             <div className="input-content">
-              <label>Email/Mobile No.</label>
+              <label>Email</label>
               <input
                 type="text"
+                id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter Email/Mobile No."
+                placeholder="Enter Email"
+                // pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                required
               />
             </div>
             <div className="input-content">
               <label>Password</label>
               <input
                 type="password"
+                id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter Password"
+                //pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                required
               />
             </div>
             <button type="submit" className="login-btn" onClick={handleSubmit}>

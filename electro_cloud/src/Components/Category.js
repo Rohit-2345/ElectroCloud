@@ -6,7 +6,7 @@ import laptop from "../Images/laptop_logo.png";
 import smartWatch from "../Images/smart-watch.jpeg";
 import tv from "../Images/tv.jpeg";
 import others from "../Images/Others.png";
-import { FiChevronDown } from "react-icons/fi";
+import { FiChevronUp } from "react-icons/fi";
 const Category = () => {
   return (
     <Wrapper>
@@ -26,10 +26,11 @@ const Category = () => {
         <img src={tv} style={{ height: "50px", width: "75px" }} alt="TV" />
         <span>TV</span>
       </Link>
-      <Link to="/Others" className="category">
+      <Link to="/Others" className="category others">
         <img src={others} alt="Others" />
-        <span>Others</span>
-        <FiChevronDown />
+        <span className="flex">
+          Others <FiChevronUp className="icon" />
+        </span>
       </Link>
     </Wrapper>
   );
@@ -57,5 +58,10 @@ const Wrapper = styled.div`
   img {
     width: 50px;
     height: 50px;
+  }
+
+  .others:hover .icon {
+    transition: 0.3s all linear;
+    transform: rotateY(180);
   }
 `;

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaStar, FaShippingFast } from "react-icons/fa";
 import styled from "styled-components";
 import { useGlobalContext } from "./Context";
 
 const WishListItem = ({ item }) => {
-  const { wishList, setWishList, cart, setCart } = useGlobalContext();
+  const { setWishList, cart, setCart } = useGlobalContext();
   console.log("WishList");
   //   const handleWishList = (item) => {
   //     if (!isWishlist) {

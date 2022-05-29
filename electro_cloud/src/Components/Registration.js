@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { useGlobalContext } from "./Context";
 import { FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+const Register_URL = "https://localhost:44351/api/Customer";
+
 const Registration = () => {
   const { openLoginPage, setOpenLoginPage, setIsLogin } = useGlobalContext();
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
+  const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
@@ -19,16 +23,49 @@ const Registration = () => {
     navigate(-2);
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (fname && lname && email && password && address) {
+  //     console.log(fname, lname, email, password, address);
+  //     console.log("form submitted");
+  //     setIsLogin(true);
+  //     setOpenLoginPage(false);
+  //     navigate(-2);
+  //   } else {
+  //     console.log("invalid");
+  //   }
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (fname && lname && email && password && address) {
-      console.log(fname, lname, email, password, address);
-      console.log("form submitted");
-      setIsLogin(true);
-      setOpenLoginPage(false);
-      navigate(-2);
-    } else {
-      console.log("invalid");
+    try {
+      if (fname && lname && mobile && email && password && address) {
+        const response = await axios.post(Register_URL, {
+          Cust_ID: new Date().getTime().toString(),
+          fname: fname,
+          lname: lname,
+          mobile: mobile,
+          email: email,
+          password: password,
+          address: address,
+        });
+        const data = response.data;
+        if (data === "Failed to Add") {
+          setIsLogin(false);
+          alert(data);
+        } else {
+          alert(data);
+          setIsLogin(true);
+          setOpenLoginPage(false);
+          navigate(-2);
+          // window.sessionStorage.setItem("cust_id", JSON.stringify(response.data));
+          // console.log(window.sessionStorage.getItem("cust_id"));
+        }
+      } else {
+        alert("Enter All Fields");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -42,7 +79,7 @@ const Registration = () => {
             <h2>Looks like you're new here!</h2>
             <p>Sign up with your mobile number to get started</p>
           </div>
-          <form className="input-container">
+          <div className="input-container">
             <button type="button" className="cross-btn" onClick={handleClose}>
               <FaTimes />
             </button>
@@ -67,15 +104,26 @@ const Registration = () => {
               />
             </div>
             <div className="input-content">
-              <label>Email/Mobile No.</label>
+              <label>Mobile No.</label>
+              <input
+                type="text"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+                placeholder="Enter Mobile No."
+                required={true}
+              />
+            </div>
+            <div className="input-content">
+              <label>Email</label>
               <input
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter Email/Mobile No."
+                placeholder="Enter Email"
                 required={true}
               />
             </div>
+
             <div className="input-content">
               <label>Password</label>
               <input
@@ -101,7 +149,7 @@ const Registration = () => {
             <button type="submit" className="signup-btn" onClick={handleSubmit}>
               SignUp
             </button>
-          </form>
+          </div>
         </div>
       </div>
     </Wrapper>
@@ -141,7 +189,7 @@ const Wrapper = styled.div`
     background: white;
     border-radius: 5px;
     width: 100%;
-    height: 60%;
+    height: 70%;
     max-width: 700px;
     position: relative;
     display: flex;

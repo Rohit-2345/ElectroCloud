@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaHeart, FaStar, FaShippingFast } from "react-icons/fa";
 import styled from "styled-components";
 import { useGlobalContext } from "../Context";
 
 const Product = ({ item, checkout }) => {
-  const { wishList, setWishList, cart, setCart } = useGlobalContext();
+  const { wishList, setWishList, setCart } = useGlobalContext();
   const [isWishlist, setIsWishlist] = useState(false);
-  const navigate = useNavigate();
+
   const handleWishList = (item) => {
     if (!isWishlist) {
       setIsWishlist(true);

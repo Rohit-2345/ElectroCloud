@@ -48,7 +48,7 @@ nav {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 1001;
 }
 .header-container {
   width: 100%;
@@ -198,6 +198,10 @@ nav {
 
 .smartwatch-container {
   background-color: steelblue;
+  padding-bottom: 0.75rem;
+}
+.tv-container {
+  background-color: rgb(232, 38, 226);
   padding-bottom: 0.75rem;
 }
 

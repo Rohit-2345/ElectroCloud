@@ -16,6 +16,10 @@ const Products = () => {
         <h1>SmartWatches</h1>
         <CarouselComponent type="smartwatch" />
       </div>
+      <div className="tv-container">
+        <h1>TV</h1>
+        <CarouselComponent type="TV" />
+      </div>
     </div>
   );
 };

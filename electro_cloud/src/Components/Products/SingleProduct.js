@@ -1,39 +1,61 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Carousel from "react-multi-carousel";
-import { useParams } from "react-router-dom";
-import { products } from "../../Data";
+import { useParams, useNavigate } from "react-router-dom";
+// import { products } from "../../Data";
 import { FiShoppingCart } from "react-icons/fi";
 import { BsLightningFill } from "react-icons/bs";
 import { FaHeart, FaStar } from "react-icons/fa";
 import { useGlobalContext } from "../Context";
+import { toast } from "react-toastify";
 const SingleProduct = () => {
   const { id } = useParams();
+  const {
+    products,
+    wishList,
+    setWishList,
+    cart,
+    setCart,
+    isLogin,
+    setOpenLoginPage,
+  } = useGlobalContext();
   const product = products.filter((item) => item.id.toString() === id)[0];
   // console.log(product);
-
-  const { wishList, setWishList, cart, setCart } = useGlobalContext();
+  const navigate = useNavigate();
   const checkWish = wishList.find((i) => i.id === product.id);
   const [isWishlist, setIsWishlist] = useState(checkWish);
 
   const handleWishList = (item) => {
-    if (!isWishlist) {
-      setIsWishlist(true);
-      setWishList((oldWishList) => {
-        return [...oldWishList, item];
-      });
-      // console.log(wishList);
+    if (!isLogin) {
+      setOpenLoginPage(true);
+      navigate("/Login");
     } else {
-      setIsWishlist(false);
-      setWishList((oldWishList) => {
-        const newList = oldWishList.filter((i) => i.id !== item.id);
-        return newList;
-      });
+      if (!isWishlist) {
+        setIsWishlist(true);
+        toast.success("Product Added To Wishlist");
+        setWishList((oldWishList) => {
+          return [...oldWishList, item];
+        });
+        // console.log(wishList);
+      } else {
+        setIsWishlist(false);
+        toast.error(`Product Remove Successfully`);
+        setWishList((oldWishList) => {
+          const newList = oldWishList.filter((i) => i.id !== item.id);
+          return newList;
+        });
+      }
     }
   };
 
   const handleCart = (item) => {
-    setCart([...cart, item]);
+    if (!isLogin) {
+      setOpenLoginPage(true);
+      navigate("/Login");
+    } else {
+      toast.success("Product Added to Cart");
+      setCart([...cart, item]);
+    }
   };
 
   const responsive = {
@@ -78,7 +100,7 @@ const SingleProduct = () => {
           autoPlaySpeed={3000}
           showDots={true}
         >
-          {product.img.map((scr, index) => (
+          {product.img.split(",").map((scr, index) => (
             <img src={scr} alt={product.name} key={index}></img>
           ))}
         </Carousel>

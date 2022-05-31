@@ -26,12 +26,20 @@ const Category = () => {
         <img src={tv} style={{ height: "50px", width: "75px" }} alt="TV" />
         <span>TV</span>
       </Link>
-      <Link to="/Others" className="category others">
+      <div className="others">
         <img src={others} alt="Others" />
         <span className="flex">
           Others <FiChevronUp className="icon" />
         </span>
-      </Link>
+        <div className="other-category">
+          <Link to="/AC" className="oc">
+            <span>Air Conditioner</span>
+          </Link>
+          <Link to="Washing_Machine" className="oc">
+            <span>Washing Machine</span>
+          </Link>
+        </div>
+      </div>
     </Wrapper>
   );
 };
@@ -46,7 +54,7 @@ const Wrapper = styled.div`
   height: 75px;
   position: fixed;
   top: 50px;
-  z-index: 100000;
+  z-index: 1001;
   background-color: aliceblue;
 
   .category {
@@ -60,8 +68,36 @@ const Wrapper = styled.div`
     height: 50px;
   }
 
+  .others {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s all linear;
+  }
   .others:hover .icon {
     transition: 0.3s all linear;
-    transform: rotateY(180);
+    transform: rotate(180deg);
+  }
+
+  .others:hover .other-category {
+    visibility: visible;
+  }
+  .other-category {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: deepskyblue;
+    position: absolute;
+    top: 75px;
+    visibility: hidden;
+  }
+
+  .oc {
+    width: 200px;
+    height: 20px;
+    padding: 5px 0;
+    border-bottom: 1px solid gray;
+    text-align: center;
   }
 `;

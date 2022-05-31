@@ -1,16 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Order = () => {
-  const [value, setValue] = useState(0);
+  const notify = () => toast("Wow so easy!");
   return (
     <div>
-      <button type="button" onClick={() => setValue(value - 1)}>
-        Minus
-      </button>
-      <h1>{value}</h1>
-      <button type="button" onClick={() => setValue(value + 1)}>
-        Add
-      </button>
+      <button onClick={notify}>Notify!</button>
+      <ToastContainer />
     </div>
   );
 };

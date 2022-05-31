@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { FaHeart, FaStar, FaShippingFast } from "react-icons/fa";
 import styled from "styled-components";
 import { useGlobalContext } from "./Context";
+import { toast } from "react-toastify";
 
 const CartItem = ({ item }) => {
   const { wishList, setWishList, cart, setCart } = useGlobalContext();
@@ -11,11 +11,13 @@ const CartItem = ({ item }) => {
   const handleWishList = (item) => {
     if (!isWishlist) {
       setIsWishlist(true);
+      toast.success("Product added to Wishlist");
       setWishList((oldWishList) => {
         return [...oldWishList, item];
       });
     } else {
       setIsWishlist(false);
+      toast.warn("Product Remove from wishlist");
       setWishList((oldWishList) => {
         const newList = oldWishList.filter((i) => i.id !== item.id);
         return newList;
@@ -24,9 +26,9 @@ const CartItem = ({ item }) => {
   };
 
   const handleCart = (id) => {
-    console.log("handle cart remove");
+    toast.error("Product Remove Successfully");
     setCart((oldCart) => {
-      console.log(oldCart);
+      // console.log(oldCart);
       const newList = oldCart.filter((i) => i.id !== id);
       return newList;
     });
@@ -47,7 +49,11 @@ const CartItem = ({ item }) => {
       )}
       <div key={item.id} className="laptop-card">
         <div className="img-content">
-          <img className="laptop-img" src={item.img[0]} alt={item.name} />
+          <img
+            className="laptop-img"
+            src={item.img.split(",")[0]}
+            alt={item.name}
+          />
         </div>
         <div className="desc-content">
           <h1>{item.name.substring(0, 100)}...</h1>

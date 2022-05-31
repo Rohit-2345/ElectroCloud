@@ -1,25 +1,35 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaHeart, FaStar, FaShippingFast } from "react-icons/fa";
 import styled from "styled-components";
 import { useGlobalContext } from "../Context";
+import { ToastContainer, toast } from "react-toastify";
 
 const Product = ({ item, checkout }) => {
-  const { wishList, setWishList, setCart } = useGlobalContext();
+  const { wishList, setWishList, setCart, isLogin, setOpenLoginPage } =
+    useGlobalContext();
   const [isWishlist, setIsWishlist] = useState(false);
-
+  const navigate = useNavigate();
   const handleWishList = (item) => {
-    if (!isWishlist) {
-      setIsWishlist(true);
-      setWishList((oldWishList) => {
-        return [...oldWishList, item];
-      });
+    if (!isLogin) {
+      // alert("please login first");
+      setOpenLoginPage(true);
+      navigate("/Login");
     } else {
-      setIsWishlist(false);
-      setWishList((oldWishList) => {
-        const newList = oldWishList.filter((i) => i.id !== item.id);
-        return newList;
-      });
+      if (!isWishlist) {
+        setIsWishlist(true);
+        toast.success("Product Added To WishList");
+        setWishList((oldWishList) => {
+          return [...oldWishList, item];
+        });
+      } else {
+        setIsWishlist(false);
+        toast.error("Product Remove Successfully");
+        setWishList((oldWishList) => {
+          const newList = oldWishList.filter((i) => i.id !== item.id);
+          return newList;
+        });
+      }
     }
   };
 
@@ -45,7 +55,11 @@ const Product = ({ item, checkout }) => {
       )}
       <Link to={`/Product/${item.id}`} key={item.id} className="laptop-card">
         <div className="img-content">
-          <img className="laptop-img" src={item.img[0]} alt={item.name} />
+          <img
+            className="laptop-img"
+            src={item.img.split(",")[0]}
+            alt={item.name}
+          />
         </div>
         <div className="desc-content">
           <h1>{item.name.substring(0, 100)}...</h1>

@@ -1,17 +1,14 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 import styled from "styled-components";
+import Login2 from "./Form/Login";
 import { useGlobalContext } from "./Context";
-import { FaTimes } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-const Login_URL = "https://localhost:44351/api/Login";
 
 const Login = () => {
-  const { openLoginPage, setOpenLoginPage, setIsLogin } = useGlobalContext();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { openLoginPage } = useGlobalContext();
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // const handleSubmit = (e) => {
   //   e.preventDefault();
@@ -26,49 +23,48 @@ const Login = () => {
   //   console.log("form submitted.");
   // };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (!email) {
-        alert("Please Enter email");
-        document.getElementById("email").style.borderColor = "red";
-      } else if (!password) {
-        alert("Please Enter password");
-        document.getElementById("email").style.borderColor = "green";
-        document.getElementById("password").style.borderColor = "red";
-      } else {
-        const response = await axios.post(Login_URL, {
-          email: email,
-          password: password,
-        });
-        const data = response.data;
-        if (data === "User Not Found") {
-          setIsLogin(false);
-          alert(data);
-        } else {
-          setIsLogin(true);
-          setOpenLoginPage(false);
-          navigate(-1);
-          window.sessionStorage.setItem("cust_id", response.data);
-          console.log(window.sessionStorage.getItem("cust_id"));
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     if (!email) {
+  //       document.getElementById("email").style.borderColor = "red";
+  //     } else if (!password) {
+  //       document.getElementById("email").style.borderColor = "green";
+  //       document.getElementById("password").style.borderColor = "red";
+  //     } else {
+  //       const response = await axios.post(Login_URL, {
+  //         email: email,
+  //         password: password,
+  //       });
+  //       const data = response.data;
+  //       if (data === "User Not Found") {
+  //         setIsLogin(false);
+  //         alert(data);
+  //       } else {
+  //         setIsLogin(true);
+  //         setOpenLoginPage(false);
+  //         navigate(-1);
+  //         window.sessionStorage.setItem("cust_id", response.data);
+  //         console.log(window.sessionStorage.getItem("cust_id"));
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const handleClose = (e) => {
-    e.preventDefault();
-    setOpenLoginPage(false);
-    navigate(-1);
-  };
+  // const handleClose = (e) => {
+  //   e.preventDefault();
+  //   setOpenLoginPage(false);
+  //   navigate(-1);
+  // };
   return (
     <Wrapper>
       <div
         className={openLoginPage ? "modal-overlay show-modal" : "modal-overlay"}
       >
-        <div className="modal-container">
+        <Login2 />
+        {/* <div className="modal-container">
           <div className="login-template">
             <h2>Login</h2>
             <p>Get access to your Orders, Wishlist and Recommendations</p>
@@ -110,7 +106,7 @@ const Login = () => {
               </p>
             </Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </Wrapper>
   );
@@ -193,16 +189,16 @@ const Wrapper = styled.div`
     margin: 10px 5px;
   }
 
-  label {
+  /* label {
     width: 150px;
   }
 
   input {
     width: 300px;
     height: 20px;
-  }
+  } */
 
-  .cross-btn {
+  /* .cross-btn {
     position: relative;
     bottom: 40px;
     left: 225px;
@@ -210,5 +206,5 @@ const Wrapper = styled.div`
     background: white;
     font-size: xx-large;
     color: red;
-  }
+  } */
 `;

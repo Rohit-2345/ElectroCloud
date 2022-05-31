@@ -1,14 +1,15 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { products } from "../Data";
+import { ecproducts as products } from "../Data";
 import { Link } from "react-router-dom";
+// import { useGlobalContext } from "./Context";
 // import { useGlobalContext } from "./Context";
 // import { FiShoppingCart } from "react-icons/fi";
 
 const CarouselComponent = ({ type }) => {
   // const { cart, setCart } = useGlobalContext();
-
+  // const { products } = useGlobalContext();
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -44,6 +45,7 @@ const CarouselComponent = ({ type }) => {
       {products
         .filter((item) => item.category === type)
         .map((item) => {
+          // console.log(item.img.split(",")[0]);
           return (
             <Link
               to={`/Product/${item.id}`}

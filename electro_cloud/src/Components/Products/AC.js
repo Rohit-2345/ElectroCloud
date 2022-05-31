@@ -1,11 +1,11 @@
 import React from "react";
-import CategoryComponent from "./CategoryComponent";
 import { products } from "../../Data";
+import CategoryComponent from "./CategoryComponent";
 import { useGlobalContext } from "../Context";
-const SmartWatch = () => {
+const AC = () => {
   const { products } = useGlobalContext();
-  const data = products.filter((i) => i.category === "smartwatch");
+  const data = products.filter((i) => i.category === "Air Conditioner");
   return <CategoryComponent data={data} />;
 };
 
-export default SmartWatch;
+export default AC;

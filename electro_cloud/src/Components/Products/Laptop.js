@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { products } from "../../Data";
 import Product from "./Product";
-
+import { useGlobalContext } from "../Context";
 const Laptop = () => {
+  const { products } = useGlobalContext();
   const data = products.filter((i) => i.category === "laptop");
   const [laptop, setLaptop] = useState(data);
 

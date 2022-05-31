@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Register from "./Form/Register";
 import { useGlobalContext } from "./Context";
 import { FaTimes } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -75,7 +76,8 @@ const Registration = () => {
         className={openLoginPage ? "modal-overlay show-modal" : "modal-overlay"}
       >
         <div className="modal-container">
-          <div className="login-template">
+          <Register />
+          {/* <div className="login-template">
             <h2>Looks like you're new here!</h2>
             <p>Sign up with your mobile number to get started</p>
           </div>
@@ -149,7 +151,7 @@ const Registration = () => {
             <button type="submit" className="signup-btn" onClick={handleSubmit}>
               SignUp
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </Wrapper>
@@ -166,7 +168,7 @@ const Wrapper = styled.div`
   }
 
   .modal-overlay {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
@@ -189,7 +191,7 @@ const Wrapper = styled.div`
     background: white;
     border-radius: 5px;
     width: 100%;
-    height: 70%;
+    /* height: 70%; */
     max-width: 700px;
     position: relative;
     display: flex;
@@ -234,7 +236,7 @@ const Wrapper = styled.div`
     margin: 10px 5px;
   }
 
-  label {
+  /* label {
     width: 150px;
   }
 
@@ -251,7 +253,7 @@ const Wrapper = styled.div`
     background: white;
     font-size: xx-large;
     color: red;
-  }
+  } */
 
   .signup-btn {
     width: 100px;

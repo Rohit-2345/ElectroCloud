@@ -2,6 +2,7 @@ import React from "react";
 import { FaStar, FaShippingFast } from "react-icons/fa";
 import styled from "styled-components";
 import { useGlobalContext } from "./Context";
+import { ToastContainer, toast } from "react-toastify";
 
 const WishListItem = ({ item }) => {
   const { setWishList, cart, setCart } = useGlobalContext();
@@ -26,11 +27,13 @@ const WishListItem = ({ item }) => {
     setWishList((oldWishlist) => {
       console.log(oldWishlist);
       const newList = oldWishlist.filter((i) => i.id !== id);
+      toast.error(`Product Remove Successfully`);
       return newList;
     });
   };
 
   const handleCart = (item) => {
+    toast.success("Product Added to Cart");
     setCart([...cart, item]);
   };
 
@@ -41,7 +44,11 @@ const WishListItem = ({ item }) => {
     <Wrapper>
       <div key={item.id} className="laptop-card">
         <div className="img-content">
-          <img className="laptop-img" src={item.img[0]} alt={item.name} />
+          <img
+            className="laptop-img"
+            src={item.img.split(",")[0]}
+            alt={item.name}
+          />
         </div>
         <div className="desc-content">
           <h1>{item.name.substring(0, 100)}...</h1>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Carousel from "react-multi-carousel";
-import { useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 // import { products } from "../../Data";
 import { FiShoppingCart } from "react-icons/fi";
 import { BsLightningFill } from "react-icons/bs";
@@ -57,6 +57,12 @@ const SingleProduct = () => {
       setCart([...cart, item]);
     }
   };
+  const handleLogin = () => {
+    if (!isLogin) {
+      setOpenLoginPage(true);
+      navigate("/Login");
+    }
+  };
 
   const responsive = {
     superLargeDesktop: {
@@ -110,10 +116,17 @@ const SingleProduct = () => {
             <FiShoppingCart />
             <span>Add to Cart</span>
           </button>
-          <button className="buy-btn">
-            <BsLightningFill />
-            <span>Buy Now</span>
-          </button>
+          {!isLogin ? (
+            <button className="buy-btn" onClick={handleLogin}>
+              <BsLightningFill />
+              <span>Buy Now</span>
+            </button>
+          ) : (
+            <Link to={`/Order/${product.id}`} className="buy-btn">
+              <BsLightningFill />
+              <span>Buy Now</span>
+            </Link>
+          )}
         </div>
       </div>
       <div className="desc-container">
@@ -216,7 +229,7 @@ const Wrapper = styled.section`
     width: 60%;
     margin: 0 5px;
     border: none;
-
+    text-align: center;
     background-color: #fb641b;
     color: white;
   }

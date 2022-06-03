@@ -21,6 +21,8 @@ import Order from "./Components/Order";
 import Checkout from "./Components/Checkout";
 import AC from "./Components/Products/AC";
 import "react-toastify/dist/ReactToastify.css";
+import AdminDashboard from "./AdminDashBoard";
+import MyOrders from "./Components/MyOrders";
 function App() {
   return (
     <div>
@@ -41,16 +43,18 @@ function App() {
           <Route path="/Product/:id" element={<SingleProduct />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Registration" element={<Registration />} />
-          <Route path="/Orders" element={<Order />} />
+          <Route path="/Order/:id" element={<Order />} />
+          <Route path="/MyOrders" element={<MyOrders />} />
           {/* <Route path="/L" element={<Login2 />} /> */}
           <Route path="/Checkout" element={<Checkout />} />
+          <Route path="/Admin" element={<AdminDashboard />} />
 
           <Route path="*" element={<Error />} />
         </Routes>
         <div style={{ marginBottom: "20px" }}></div>
       </Router>
       <Footer />
-      <ToastContainer />
+      <ToastContainer autoClose={2000} theme="colored" />
     </div>
   );
 }

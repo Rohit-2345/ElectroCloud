@@ -3,6 +3,7 @@ import { FaHeart, FaStar, FaShippingFast } from "react-icons/fa";
 import styled from "styled-components";
 import { useGlobalContext } from "./Context";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const CartItem = ({ item }) => {
   const { wishList, setWishList, cart, setCart } = useGlobalContext();
@@ -99,9 +100,9 @@ const CartItem = ({ item }) => {
             >
               Remove
             </button>
-            <button type="button" className="checkout-btn">
+            <Link to={`/Order/${item.id}`} className="checkout-btn">
               Checkout
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -222,5 +223,8 @@ const Wrapper = styled.div`
     height: 30px;
     border: 1px solid orange;
     border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 `;

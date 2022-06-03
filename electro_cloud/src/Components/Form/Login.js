@@ -5,12 +5,13 @@ import axios from "axios";
 import { FaTimes } from "react-icons/fa";
 import { useGlobalContext } from "../Context";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const Login_URL = "https://localhost:44351/api/Login";
 
 const Login = () => {
-  const { openLoginPage, setOpenLoginPage, setIsLogin } = useGlobalContext();
+  const { user, openLoginPage, setOpenLoginPage, setIsLogin } =
+    useGlobalContext();
   const [values, setValues] = useState({
     email: "",
     password: "",

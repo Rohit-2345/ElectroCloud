@@ -5,7 +5,9 @@ import axios from "axios";
 import { FaTimes } from "react-icons/fa";
 import { useGlobalContext } from "../Context";
 import { useNavigate } from "react-router-dom";
-const Register_URL = "https://localhost:44351/api/Customer";
+import { toast } from "react-toastify";
+
+const Register_URL = "https://localhost:44351/api/Register";
 const Register = () => {
   const { openLoginPage, setOpenLoginPage, setIsLogin } = useGlobalContext();
   const [values, setValues] = useState({
@@ -45,14 +47,18 @@ const Register = () => {
           address: values.address,
         });
         const data = response.data;
-        if (data === "Failed to Add") {
+        if (
+          data === "Failed to Add" ||
+          data === "Email already in Use" ||
+          data === "Mobile already in Use"
+        ) {
           setIsLogin(false);
-          alert(data);
+          toast.error(data);
         } else {
-          alert(data);
           setIsLogin(true);
           setOpenLoginPage(false);
           navigate(-2);
+          toast.success(data);
           // window.sessionStorage.setItem("cust_id", JSON.stringify(response.data));
           // console.log(window.sessionStorage.getItem("cust_id"));
         }
@@ -90,7 +96,7 @@ const Register = () => {
     {
       id: 3,
       name: "mobile",
-      type: "tel",
+      type: "text",
       placeholder: "Mobile",
       errorMessage:
         "Mobile should be 10 characters and shouldn't include any special character!",

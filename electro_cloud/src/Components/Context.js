@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 //Get
 import { products as p } from "../Data";
@@ -22,14 +23,13 @@ const AppProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [user, setUser] = useState();
   const [order, setOrder] = useState([]);
-  const [products, setProducts] = useState([...p]);
+  const [products, setProducts] = useState([]); //useState([...p]) use this for see offline products
 
   //Fetch Products
   const fetchData = async () => {
     const response = await fetch(API_URL);
     const data = await response.json();
     setProducts(data);
-    console.log(data);
   };
 
   //Fetch User Details
@@ -62,12 +62,21 @@ const AppProvider = ({ children }) => {
 
   //Fetch User Wishlist
   const fetchWishlist = async () => {
-    const response = await fetch(
+    const response = await axios.get(
       `${GET_Wishlist_URL}${window.sessionStorage.cust_id}`
     );
-    const wish = await response.json();
-    // console.log("wish", wish);
+    const wish = await response.data;
+
+    const wishData = wish.map((w) => fetchProductByID(w.Product_ID));
+
+    console.log("wishData", wishData);
     // setWishList([...wish]);
+  };
+
+  const fetchProductByID = async (id) => {
+    const response = await axios.get(`${Single_Product_URL}${id}`);
+    const data = await response.data;
+    return data;
   };
 
   useEffect(() => {
@@ -94,6 +103,7 @@ const AppProvider = ({ children }) => {
   // };
   const Logout = () => {
     setIsLogin(false);
+    window.sessionStorage.clear();
   };
   return (
     <AppContext.Provider
@@ -113,6 +123,7 @@ const AppProvider = ({ children }) => {
         user,
         order,
         fetchOrders,
+        fetchWishlist,
       }}
     >
       {children}

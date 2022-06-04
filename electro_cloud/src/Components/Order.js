@@ -214,7 +214,7 @@ const Order = () => {
               transactionInfo: {
                 totalPriceStatus: "FINAL",
                 totalPriceLabel: "Total",
-                totalPrice: total,
+                totalPrice: total.toString(),
                 currencyCode: "INR",
                 countryCode: "IN",
               },

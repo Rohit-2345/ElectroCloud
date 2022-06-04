@@ -3,13 +3,13 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { ecproducts as products } from "../Data";
 import { Link } from "react-router-dom";
-// import { useGlobalContext } from "./Context";
+import { useGlobalContext } from "./Context";
 // import { useGlobalContext } from "./Context";
 // import { FiShoppingCart } from "react-icons/fi";
 
 const CarouselComponent = ({ type }) => {
   // const { cart, setCart } = useGlobalContext();
-  // const { products } = useGlobalContext();
+  const { products } = useGlobalContext();
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -52,7 +52,11 @@ const CarouselComponent = ({ type }) => {
               key={item.id}
               className="product-card"
             >
-              <img src={item.img[0]} className="product-img" alt={item.name} />
+              <img
+                src={item.img.split(",")[0]}
+                className="product-img"
+                alt={item.name}
+              />
               <h1>
                 {item.name.substring(0, 45)}
                 {item.name.length > 45 ? "..." : ""}

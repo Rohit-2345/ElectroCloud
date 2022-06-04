@@ -42,6 +42,7 @@ function AdminDashboard() {
           ...values,
           id: uuid(),
         });
+        console.log("Product", { ...values, id: uuid() });
         if (response.status === 200) {
           toast.success("Product Added to DB");
         } else {

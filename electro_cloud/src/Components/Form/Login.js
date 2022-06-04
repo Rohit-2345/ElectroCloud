@@ -56,13 +56,21 @@ const Login = () => {
         if (data === "User Not Found") {
           setIsLogin(false);
           toast.error(data);
+        } else if (data === "Wrong Password") {
+          setIsLogin(false);
+          toast.error(data);
+        } else if (data === "Admin") {
+          setIsLogin(true);
+          setOpenLoginPage(false);
+          navigate("/Admin");
+          toast.success("Welcome Admin");
         } else {
           setIsLogin(true);
           setOpenLoginPage(false);
           navigate(-1);
           toast.success("Welcome");
           window.sessionStorage.setItem("cust_id", response.data);
-          console.log(window.sessionStorage.getItem("cust_id"));
+          // console.log(window.sessionStorage.getItem("cust_id"));
         }
       } catch (error) {
         console.log(error);

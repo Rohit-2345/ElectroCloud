@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGlobalContext } from "./Context";
 import styled from "styled-components";
-const Order_URL = "https://localhost:44351/api/Order?Cust_ID=10";
+// const Order_URL = "https://localhost:44351/api/Order?Cust_ID=";
 
 const MyOrders = () => {
-  const { order, user, products } = useGlobalContext();
-  //   const product = products.filter((p) => p.id === item.Product_ID)[1];
-  // console.log(products.filter((p) => p.id === "3")[0]);
+  const { fetchOrders, order, user, products } = useGlobalContext();
 
+  useEffect(() => {
+    setTimeout(fetchOrders, 2000);
+  }, []);
   return (
     <Wrapper>
       <table>
@@ -16,6 +17,9 @@ const MyOrders = () => {
             <th>Order ID</th>
             <th>Product Name</th>
             <th>Address</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+            <th>Payment ID</th>
           </tr>
         </thead>
         {order.map((item) => {
@@ -24,9 +28,15 @@ const MyOrders = () => {
               <tr>
                 <td>{item.Order_ID}</td>
                 <td>
-                  {products.filter((p) => p.id === item.Product_ID)[0].name}
+                  {products.filter((p) => p.id === item.Product_ID)[0].name ===
+                  undefined
+                    ? "Not Available"
+                    : products.filter((p) => p.id === item.Product_ID)[0].name}
                 </td>
                 <td>{user.address}</td>
+                <td>{item.quantity}</td>
+                <td>{item.total_price}</td>
+                <td>{item.Transaction_ID}</td>
               </tr>
             </tbody>
           );

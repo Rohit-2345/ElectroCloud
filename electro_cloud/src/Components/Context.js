@@ -2,10 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 //Get
 import { products as p } from "../Data";
 const API_URL = "https://localhost:44351/api/Product";
+const Single_Product_URL = "https://localhost:44351/api/Product/";
 const User_URL = "https://localhost:44351/api/Register";
 const Get_Order_URL = "https://localhost:44351/api/Order?Cust_ID={id}";
 const GetALL_Order_URL = "https://localhost:44351/api/Order";
 const Order_URL = "https://localhost:44351/api/Order?Cust_ID=";
+const GET_Cart_URL = "https://localhost:44351/api/Cart?Cust_ID=";
+const GET_Wishlist_URL = "https://localhost:44351/api/Wishlist?Cust_ID=";
 //Post
 const Register_URL = "https://localhost:44351/api/Register";
 const Login_URL = "https://localhost:44351/api/Login";
@@ -21,42 +24,61 @@ const AppProvider = ({ children }) => {
   const [order, setOrder] = useState([]);
   const [products, setProducts] = useState([...p]);
 
-  // console.log(new Date().getTime().toString());
+  //Fetch Products
   const fetchData = async () => {
     const response = await fetch(API_URL);
     const data = await response.json();
     setProducts(data);
     console.log(data);
   };
+
+  //Fetch User Details
   const fetchUser = async () => {
     const response = await fetch(
       `${User_URL}/${window.sessionStorage.cust_id}`
     );
     const data = await response.json();
     setUser(data);
-    // console.log(`${User_URL}/${window.sessionStorage.cust_id}`);
-    // console.log(data);
   };
 
+  //Fetch User Orders
   const fetchOrders = async () => {
-    // console.log(`${Order_URL}${window.sessionStorage.cust_id}`);
-
     const response = await fetch(
       `${Order_URL}${window.sessionStorage.cust_id}`
     );
     const order = await response.json();
     setOrder([...order]);
-    console.log(order);
+  };
+
+  //Fetch User Cart
+  const fetchCart = async () => {
+    const response = await fetch(
+      `${GET_Cart_URL}${window.sessionStorage.cust_id}`
+    );
+    const cartList = await response.json();
+    // console.log("cartList", cartList);
+    // setCart([...cartList]);
+  };
+
+  //Fetch User Wishlist
+  const fetchWishlist = async () => {
+    const response = await fetch(
+      `${GET_Wishlist_URL}${window.sessionStorage.cust_id}`
+    );
+    const wish = await response.json();
+    // console.log("wish", wish);
+    // setWishList([...wish]);
   };
 
   useEffect(() => {
     fetchData();
-    fetchUser();
   }, []);
 
   useEffect(() => {
     fetchUser();
     fetchOrders();
+    fetchCart();
+    fetchWishlist();
   }, [window.sessionStorage.cust_id]);
 
   const openLogin = () => {
@@ -90,6 +112,7 @@ const AppProvider = ({ children }) => {
         products,
         user,
         order,
+        fetchOrders,
       }}
     >
       {children}

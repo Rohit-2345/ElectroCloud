@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 const WishListItem = ({ item }) => {
   const { setWishList, cart, setCart } = useGlobalContext();
-  console.log("WishList");
+  // console.log("WishList");
   //   const handleWishList = (item) => {
   //     if (!isWishlist) {
   //       setIsWishlist(true);
@@ -25,7 +25,6 @@ const WishListItem = ({ item }) => {
   const handleWishList = (id) => {
     console.log("handle wish remove");
     setWishList((oldWishlist) => {
-      console.log(oldWishlist);
       const newList = oldWishlist.filter((i) => i.id !== id);
       toast.error(`Product Remove Successfully`);
       return newList;

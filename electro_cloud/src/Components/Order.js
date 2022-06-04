@@ -7,6 +7,7 @@ import { useGlobalContext } from "./Context";
 import styled from "styled-components";
 import GooglePayButton from "@google-pay/button-react";
 import axios from "axios";
+import uuid from "react-uuid";
 const Post_Order_URL = "https://localhost:44351/api/Order";
 
 const Order = () => {
@@ -87,11 +88,14 @@ const Order = () => {
         Order_ID: new Date().getTime().toString(),
         Cust_ID: user.Cust_ID,
         Product_ID: id,
+        quantity: quantity,
+        total_price: total,
+        Transaction_ID: uuid(),
       });
       // console.log(response);
       if (response.status === 200) {
         toast.success(" 🦄 Order Successfull");
-        navigate("/");
+        navigate("/MyOrders");
       } else {
         toast.error("Order Failed");
       }

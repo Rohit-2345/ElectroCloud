@@ -4,11 +4,7 @@ import "react-multi-carousel/lib/styles.css";
 import { ecproducts as products } from "../Data";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "./Context";
-// import { useGlobalContext } from "./Context";
-// import { FiShoppingCart } from "react-icons/fi";
-
 const CarouselComponent = ({ type }) => {
-  // const { cart, setCart } = useGlobalContext();
   const { products } = useGlobalContext();
   const responsive = {
     superLargeDesktop: {
@@ -29,9 +25,6 @@ const CarouselComponent = ({ type }) => {
       items: 1,
     },
   };
-  // const handleCart = (item) => {
-  //   setCart([...cart, item]);
-  // };
   return (
     <Carousel
       responsive={responsive}
@@ -45,7 +38,6 @@ const CarouselComponent = ({ type }) => {
       {products
         .filter((item) => item.category === type)
         .map((item) => {
-          // console.log(item.img.split(",")[0]);
           return (
             <Link
               to={`/Product/${item.id}`}
@@ -62,10 +54,6 @@ const CarouselComponent = ({ type }) => {
                 {item.name.length > 45 ? "..." : ""}
               </h1>
               <h2>Price:₹{item.price}</h2>
-              {/* <button className="add-btn" onClick={() => handleCart(item)}>
-                <FiShoppingCart />
-                <span>Add to Cart</span>
-              </button> */}
             </Link>
           );
         })}

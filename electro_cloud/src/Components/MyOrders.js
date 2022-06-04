@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useGlobalContext } from "./Context";
 import styled from "styled-components";
-// const Order_URL = "https://localhost:44351/api/Order?Cust_ID=";
 
 const MyOrders = () => {
   const { fetchOrders, order, user, products } = useGlobalContext();

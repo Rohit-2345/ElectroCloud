@@ -5,108 +5,12 @@ import { useGlobalContext } from "./Context";
 
 const Login = () => {
   const { openLoginPage } = useGlobalContext();
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
-  // const navigate = useNavigate();
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (email === "r" && password === "r") {
-  //     setIsLogin(true);
-  //     setOpenLoginPage(false);
-  //     navigate(-1);
-  //   } else {
-  //     setIsLogin(false);
-  //     console.log("invalid user");
-  //   }
-  //   console.log("form submitted.");
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     if (!email) {
-  //       document.getElementById("email").style.borderColor = "red";
-  //     } else if (!password) {
-  //       document.getElementById("email").style.borderColor = "green";
-  //       document.getElementById("password").style.borderColor = "red";
-  //     } else {
-  //       const response = await axios.post(Login_URL, {
-  //         email: email,
-  //         password: password,
-  //       });
-  //       const data = response.data;
-  //       if (data === "User Not Found") {
-  //         setIsLogin(false);
-  //         alert(data);
-  //       } else {
-  //         setIsLogin(true);
-  //         setOpenLoginPage(false);
-  //         navigate(-1);
-  //         window.sessionStorage.setItem("cust_id", response.data);
-  //         console.log(window.sessionStorage.getItem("cust_id"));
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const handleClose = (e) => {
-  //   e.preventDefault();
-  //   setOpenLoginPage(false);
-  //   navigate(-1);
-  // };
   return (
     <Wrapper>
       <div
         className={openLoginPage ? "modal-overlay show-modal" : "modal-overlay"}
       >
         <Login2 />
-        {/* <div className="modal-container">
-          <div className="login-template">
-            <h2>Login</h2>
-            <p>Get access to your Orders, Wishlist and Recommendations</p>
-          </div>
-          <div className="input-container">
-            <button type="button" className="cross-btn" onClick={handleClose}>
-              <FaTimes />
-            </button>
-            <div className="input-content">
-              <label>Email</label>
-              <input
-                type="text"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter Email"
-                // pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                required
-              />
-            </div>
-            <div className="input-content">
-              <label>Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter Password"
-                //pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                required
-              />
-            </div>
-            <button type="submit" className="login-btn" onClick={handleSubmit}>
-              Login
-            </button>
-            <Link to="/registration">
-              <p style={{ color: "#2874f0" }}>
-                New to ELECTROCLOUD? Create an Account
-              </p>
-            </Link>
-          </div>
-        </div> */}
       </div>
     </Wrapper>
   );
@@ -149,9 +53,6 @@ const Wrapper = styled.div`
     max-width: 700px;
     position: relative;
     display: flex;
-    /* flex-direction: column;
-    justify-content: center;
-    align-items: center; */
   }
   .close-modal-btn {
     position: absolute;
@@ -178,7 +79,6 @@ const Wrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* margin-top: 20px; */
   }
 
   .input-content {
@@ -188,23 +88,4 @@ const Wrapper = styled.div`
     width: 100%;
     margin: 10px 5px;
   }
-
-  /* label {
-    width: 150px;
-  }
-
-  input {
-    width: 300px;
-    height: 20px;
-  } */
-
-  /* .cross-btn {
-    position: relative;
-    bottom: 40px;
-    left: 225px;
-    border-style: none;
-    background: white;
-    font-size: xx-large;
-    color: red;
-  } */
 `;

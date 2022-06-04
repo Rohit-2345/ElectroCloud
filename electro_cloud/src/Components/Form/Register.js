@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const Register_URL = "https://localhost:44351/api/Register";
 const Register = () => {
-  const { openLoginPage, setOpenLoginPage, setIsLogin } = useGlobalContext();
+  const { setOpenLoginPage, setIsLogin } = useGlobalContext();
   const [values, setValues] = useState({
     fname: "",
     lname: "",
@@ -59,8 +59,6 @@ const Register = () => {
           setOpenLoginPage(false);
           navigate(-2);
           toast.success(data);
-          // window.sessionStorage.setItem("cust_id", JSON.stringify(response.data));
-          // console.log(window.sessionStorage.getItem("cust_id"));
         }
       } else {
         alert("Enter All Fields");
@@ -182,13 +180,6 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    /* padding-top: 10px;
-    padding-bottom: 20px; */
-    /* background: linear-gradient(
-        rgba(255, 255, 255, 0.7),
-        rgba(255, 255, 255, 0.3)
-      ),
-      url("https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"); */
     background-size: cover;
     background-position: center;
   }

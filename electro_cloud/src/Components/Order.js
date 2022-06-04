@@ -15,7 +15,6 @@ const Order = () => {
   const [quantity, setQuantity] = useState(1);
   const { products, user } = useGlobalContext();
   const product = products.filter((item) => item.id.toString() === id)[0];
-  // console.log(product, user);
   const [total, setTotal] = useState(product.price * quantity);
   const [values, setValues] = useState({
     fname: user.fname,

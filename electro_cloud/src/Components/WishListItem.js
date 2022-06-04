@@ -6,22 +6,6 @@ import { ToastContainer, toast } from "react-toastify";
 
 const WishListItem = ({ item }) => {
   const { setWishList, cart, setCart } = useGlobalContext();
-  // console.log("WishList");
-  //   const handleWishList = (item) => {
-  //     if (!isWishlist) {
-  //       setIsWishlist(true);
-  //       setWishList((oldWishList) => {
-  //         return [...oldWishList, item];
-  //       });
-  //     } else {
-  //       setIsWishlist(false);
-  //       setWishList((oldWishList) => {
-  //         const newList = oldWishList.filter((i) => i.id !== item.id);
-  //         return newList;
-  //       });
-  //     }
-  //   };
-
   const handleWishList = (id) => {
     console.log("handle wish remove");
     setWishList((oldWishlist) => {
@@ -36,9 +20,6 @@ const WishListItem = ({ item }) => {
     setCart([...cart, item]);
   };
 
-  // useEffect(() => {
-  //   console.log(wishList);
-  // });
   return (
     <Wrapper>
       <div key={item.id} className="laptop-card">

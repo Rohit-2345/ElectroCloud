@@ -29,15 +29,11 @@ const CartItem = ({ item }) => {
   const handleCart = (id) => {
     toast.error("Product Remove Successfully");
     setCart((oldCart) => {
-      // console.log(oldCart);
       const newList = oldCart.filter((i) => i.id !== id);
       return newList;
     });
   };
 
-  // useEffect(() => {
-  //   console.log(wishList);
-  // });
   return (
     <Wrapper>
       {wishList.find((i) => i.id === item.id) ? (

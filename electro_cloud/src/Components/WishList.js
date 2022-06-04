@@ -15,7 +15,6 @@ const WishList = () => {
   if (wishList.length === 0) {
     return (
       <div className="loading">
-        {/* <img scr={ecimage} alt="Logo" className="logo-img" /> */}
         <h1>
           No Product Added to WishList{" "}
           <BsBookmarkHeart style={{ color: "red" }} />

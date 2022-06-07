@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WishlistModelStoreContainer" CdmEntityContainer="WishlistEntities">
+    <EntitySetMapping Name="Wishlist_Table">
+      <EntityTypeMapping TypeName="WishlistModel.Wishlist_Table">
+        <MappingFragment StoreEntitySet="Wishlist_Table">
+          <ScalarProperty Name="Wishlist_ID" ColumnName="Wishlist_ID" />
+          <ScalarProperty Name="Cust_ID" ColumnName="Cust_ID" />
+          <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

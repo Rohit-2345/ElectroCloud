@@ -34,7 +34,7 @@ const MyOrders = () => {
                 </td>
                 <td>{user.address}</td>
                 <td>{item.quantity}</td>
-                <td>{item.total_price}</td>
+                <td>₹{item.total_price}</td>
                 <td>{item.Transaction_ID}</td>
               </tr>
             </tbody>

@@ -10,8 +10,7 @@ import { toast } from "react-toastify";
 const Login_URL = "https://localhost:44351/api/Login";
 
 const Login = () => {
-  const { user, openLoginPage, setOpenLoginPage, setIsLogin } =
-    useGlobalContext();
+  const { setOpenLoginPage, setIsLogin } = useGlobalContext();
   const [values, setValues] = useState({
     email: "",
     password: "",

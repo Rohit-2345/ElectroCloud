@@ -1,17 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useGlobalContext } from "./Context";
 import WishListItem from "./WishListItem";
-import ecimage from "../Images/electro.png";
 import { BsBookmarkHeart } from "react-icons/bs";
 
 const WishList = () => {
-  const { wishList, fetchWishlist } = useGlobalContext();
+  const { wishList } = useGlobalContext();
 
-  useEffect(() => {
-    if (wishList.length === 0) {
-      fetchWishlist();
-    }
-  }, []);
   if (wishList.length === 0) {
     return (
       <div className="loading">

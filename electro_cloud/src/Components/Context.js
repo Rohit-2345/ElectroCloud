@@ -28,6 +28,7 @@ const AppProvider = ({ children }) => {
   //Fetch Products
   const fetchData = async () => {
     const response = await fetch(API_URL);
+    console.log("response", response);
     const data = await response.json();
     setProducts(data);
   };
@@ -56,8 +57,10 @@ const AppProvider = ({ children }) => {
       `${GET_Cart_URL}${window.sessionStorage.cust_id}`
     );
     const cartList = await response.json();
-    // console.log("cartList", cartList);
-    // setCart([...cartList]);
+    const cartData = cartList.map((w) => fetchProductByID(w.Product_ID));
+    let final = [];
+    cartData.map((w) => final.push(...w));
+    setCart([...final]);
   };
 
   //Fetch User Wishlist
@@ -66,16 +69,17 @@ const AppProvider = ({ children }) => {
       `${GET_Wishlist_URL}${window.sessionStorage.cust_id}`
     );
     const wish = await response.data;
-
+    // const d1 = wish.map((w) => products.find((p) => p.id === w.Product_ID));
     const wishData = wish.map((w) => fetchProductByID(w.Product_ID));
+    let final = [];
+    wishData.map((w) => final.push(...w));
+    setWishList([...final]);
 
-    console.log("wishData", wishData);
     // setWishList([...wish]);
   };
 
-  const fetchProductByID = async (id) => {
-    const response = await axios.get(`${Single_Product_URL}${id}`);
-    const data = await response.data;
+  const fetchProductByID = (id) => {
+    const data = products.filter((p) => p.id === id);
     return data;
   };
 
@@ -86,9 +90,12 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     fetchUser();
     fetchOrders();
-    fetchCart();
-    fetchWishlist();
   }, [window.sessionStorage.cust_id]);
+
+  useEffect(() => {
+    fetchWishlist();
+    fetchCart();
+  }, [products]);
 
   const openLogin = () => {
     setOpenLoginPage(() => true);

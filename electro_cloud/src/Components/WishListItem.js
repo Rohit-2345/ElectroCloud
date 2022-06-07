@@ -2,7 +2,7 @@ import React from "react";
 import { FaStar, FaShippingFast } from "react-icons/fa";
 import styled from "styled-components";
 import { useGlobalContext } from "./Context";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const WishListItem = ({ item }) => {
   const { setWishList, cart, setCart } = useGlobalContext();
